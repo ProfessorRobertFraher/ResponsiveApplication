@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.robertfraher.hello-world"
+        id        = "com.robertfraher.responsive-application"
         version   = "2.0.0">
-    <name>HelloWorld</name>
+    <name>Responsive Application</name>
 
     <description>
-        HelloWorld sample application.
+        Responsive Application sample application.
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
