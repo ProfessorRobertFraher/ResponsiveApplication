@@ -10,9 +10,8 @@
         <link href="css/reset.css" rel="stylesheet" type="text/css" />
         <link href="css/styles.css" rel="stylesheet" type="text/css" />
         
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>-->
-        <!--<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>-->
-        <!--<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>-->
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
         
         <script type="text/javascript" src="phonegap.js"></script>
         
@@ -23,7 +22,6 @@
         	}
 			
 			function onDeviceReady() {
-				alert("second alert");
 			  // do Something!
 			  // example: display a Cordova Alert
 			  // see docs.phonegap.com for full details
@@ -35,11 +33,15 @@
 				'Congratulations',            // title
 				'Done'                      // buttonName
 			   );
-			   
-			  useExistingPhoto;
-			   
 			}
 			
+			
+			$('header').on('tap', function(event){
+				alert("Tapped!");
+				useExistingPhoto(event);
+				event.preventDefault();
+				//Do something...
+			});
 			
 			// use an existing photo from the library:
 			useExistingPhoto: function(e) {
