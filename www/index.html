@@ -14,39 +14,12 @@
         <script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
         
         <script type="text/javascript" src="phonegap.js"></script>
-        
-		<script>
-        	function onLoad() {
-				alert("onLoad");
-				document.addEventListener('deviceready', onDeviceReady, false);
-        	}
-			
-			function onDeviceReady() {
-			  // do Something!
-			  // example: display a Cordova Alert
-			  // see docs.phonegap.com for full details
-			  navigator.notification.alert(
-				'Cordova is ready!',       // message
-				function() {
-					//do something
-				},  // callback
-				'Congratulations',            // title
-				'Done'                      // buttonName
-			   );
-			}
-		
-        </script>
     
     </head>
     
-    <body onload="onLoad();">
+    <body>
     
-        <header>
-        	 <h1>Robert Fraher's NEW Application</h1>
-        </header>
-        
-        <section id="content">
-        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <canvas id="myCanvas"></canvas>
             
             <div id="myButtonHolder">
             	<a id="myButton" href="#"></a>
@@ -55,18 +28,44 @@
         </section>
         
         <script>
+			var canvas;
+			var ctx;
+			
+			var imageObject = new Image();
+		
+			$(document).ready(function() {
+				
+				alert("Document ready!");
+				document.addEventListener('deviceready', onDeviceReady, false);
+
+				canvas = document.getElementById('myCanvas');
+				canvas.width  = 960;
+				canvas.height = 480;
+				
+				ctx = canvas.getContext('2d');
+				
+				imageObject.src = "images/myImage.jpg";
+				
+        	});	
+			
+			function onDeviceReady() {
+			  	navigator.notification.alert(
+					'Cordova is ready!'
+			   	);
+			}
+		
 			$('#myButton').on('tap', function(event){
-				alert("Tapped!");
+				alert("My button tapped!");
 				useExistingPhoto(event);
 				event.preventDefault();
-				//Do something...
 			});
 			
 			// use an existing photo from the library:
 			function useExistingPhoto(e) {
-				alert("useExistingPhoto");
-			  capture(Camera.PictureSourceType.SAVEDPHOTOALBUM);
+				alert("useExistingPhoto function called!");
+			  	capture(Camera.PictureSourceType.SAVEDPHOTOALBUM);
 			};
+			
 			/*
 			// take a new photo:
 			function takePhoto(e) {
@@ -76,8 +75,8 @@
 			
 			// capture either new or existing photo:
 			function capture(sourceType) {
-				alert("capture");
-			  navigator.camera.getPicture(onCaptureSuccess, onCaptureFail, {
+				alert("capture function called!");
+			  	navigator.camera.getPicture(onCaptureSuccess, onCaptureFail, {
 				destinationType: Camera.DestinationType.FILE_URI,
 				sourceType: sourceType,
 				correctOrientation: true
@@ -86,8 +85,11 @@
 			
 			// if photo is captured successfully, then upload to server:
 			function onCaptureSuccess(imageURI) {
-				alert("onCaptureSuccess");
-				alert(imageURI);
+				alert("onCaptureSuccess function called!");
+				alert("The path to the selected image is: " + imageURI);
+				
+				imageObject.src = imageURI;
+				
 				/*
 			  var fail, ft, options, params, win;
 			  // callback for when the photo has been successfully uploaded:
@@ -116,6 +118,10 @@
 			  ft = new FileTransfer();
 			  ft.upload(imageURI, 'http://example.com/path/to/service', success, fail, options);
 			  */
+			};
+			
+			imageObject.onload = function() {
+				ctx.drawImage(imageObject, 0, 0);
 			};
 			
 			// there was an error capturing the photo:
